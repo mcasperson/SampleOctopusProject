@@ -1,0 +1,133 @@
+process {
+    Id = "deploymentprocess-Projects-2381"
+    OwnerId = "Projects-2381"
+    IsFrozen = false
+    Version = 1
+    SpaceId = "Spaces-1"
+    Steps {
+        deploy_to_tomcat_via_manager {
+            Id = "526bf0ce-2373-439a-8787-4bdbc758f342"
+            Name = "Deploy to Tomcat via Manager"
+            Condition = "Success"
+            StartTrigger = "StartAfterPrevious"
+            PackageRequirement = "LetOctopusDecide"
+            Actions {
+                deploy_to_tomcat_via_manager {
+                    Id = "be518468-440e-4bcd-8e0c-3d08a22af33f"
+                    Name = "Deploy to Tomcat via Manager"
+                    ActionType = "Octopus.TomcatDeploy"
+                    WorkerPoolVariable = ""
+                    Container {
+                    }
+                    IsDisabled = false
+                    IsRequired = false
+                    Environments = []
+                    ExcludedEnvironments = []
+                    Channels = []
+                    TenantTags = []
+                    Packages {
+                        item {
+                            Id = "82cb7de1-405d-4a19-98ea-2b25a38beb99"
+                            Name = ""
+                            PackageId = "maven-war-plugin-example"
+                            FeedId = "feeds-builtin"
+                            AcquisitionLocation = "Server"
+                            Properties {
+                                selectionmode {
+                                    Key = "SelectionMode"
+                                    Value = "immediate"
+                                }
+                            }
+                        }
+                    }
+                    Condition = "Success"
+                    Properties {
+                        tomcat.deploy.password {
+                            Key = "Tomcat.Deploy.Password"
+                            Value {
+                                Value = "Password01!"
+                                IsSensitive = true
+                                HasValue = true
+                            }
+                        }
+                        octopus.action.enabledfeatures {
+                            Key = "Octopus.Action.EnabledFeatures"
+                            Value {
+                                Value = ",Octopus.Features.TomcatDeployManager"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        tomcat.deploy.controller {
+                            Key = "Tomcat.Deploy.Controller"
+                            Value {
+                                Value = "http://localhost:8080/manager"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        tomcat.deploy.enabled {
+                            Key = "Tomcat.Deploy.Enabled"
+                            Value {
+                                Value = "True"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        tomcat.deploy.user {
+                            Key = "Tomcat.Deploy.User"
+                            Value {
+                                Value = "tomcat"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        tomcat.deploy.name {
+                            Key = "Tomcat.Deploy.Name"
+                            Value {
+                                Value = "/app"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        octopus.action.package.packageid {
+                            Key = "Octopus.Action.Package.PackageId"
+                            Value {
+                                Value = "maven-war-plugin-example"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        octopus.action.package.feedid {
+                            Key = "Octopus.Action.Package.FeedId"
+                            Value {
+                                Value = "feeds-builtin"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                        octopus.action.package.downloadontentacle {
+                            Key = "Octopus.Action.Package.DownloadOnTentacle"
+                            Value {
+                                Value = "False"
+                                IsSensitive = false
+                                HasValue = true
+                            }
+                        }
+                    }
+                }
+            }
+            Properties {
+                octopus.action.targetroles {
+                    Key = "Octopus.Action.TargetRoles"
+                    Value {
+                        Value = "web"
+                        IsSensitive = false
+                        HasValue = true
+                    }
+                }
+            }
+        }
+    }
+    RelatedDocumentIds = []
+}
